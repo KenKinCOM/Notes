@@ -46,7 +46,7 @@ got
 
 	-  查看所有分支  
 		git branch -a (查看所有分支 包括本地远程)  
-		git branch -r (查看远程分支)  adfasdf
+		git branch -r (查看远程分支)  
 
 	-  本地创建新的分支  
 		git checkout -b branchname (创建并切换到新的分支)  
@@ -55,5 +55,7 @@ got
 	-  将新的分支推送至 Github  
 		git push origin branchname
 
-hahahh
-asdfasdf		
+在一个文本更新过后 暂存区已有挂载 只需 commit -am 导入本地库 再用 push 到github远程库就行
+先是文件本体 add 到 暂存区  
+分支的区别主要在于 暂存区
+		
