@@ -29,5 +29,31 @@
 |branch||创建分支|
 |merge||合并分支命令|
 |checkout||切换分支命令|
+|log|-all|显示所有分支|
+||-pretty=oneline|将提交星系显示为一行|
+||=abbrev-commit|是得输出得commitid更简短|
+||-graph|以图像的形式显示|
 
-git
+got
+
+1.远程代码  
+
+	-  克隆远程仓库项目  
+		git clone remote——url  
+		
+	-  和远程仓库建立关联  
+		git remote add origin remote_url/branch_name  
+
+	-  查看所有分支  
+		git branch -a (查看所有分支 包括本地远程)  
+		git branch -r (查看远程分支)  
+
+	-  本地创建新的分支  
+		git checkout -b branchname (创建并切换到新的分支)  
+		git branch branchname + git chekout branchname(切换分支命令)  
+
+	-  将新的分支推送至 Github  
+		git push origin branchname
+
+
+		
