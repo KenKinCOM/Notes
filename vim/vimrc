@@ -17,6 +17,12 @@ set tabstop=4
 set autoindent
 set scrolloff=4
 
+"方向键
+noremap k j
+noremap i k
+noremap h i
+noremap j h
+noremap H I
 
 map ! :q!<CR>
 map Q :wq<CR>
@@ -28,16 +34,20 @@ map <LEADER>sc :set spell!<CR>
 noremap <C-x> ea<C-x>s
 inoremap <C-x> <Esc>ea<C-x>s
 
+"标签页	
+map to :tabe<CR>
+map tu :-tabnext<CR>
+map ti :+tabnext<CR>
+
 map sl :set splitright<CR>:vsplit<CR>
 map sj :set nosplitright<CR>:vsplit<CR>
 map si :set nosplitbelow<CR>:split<CR>
 map sk :set splitbelow<CR>:split<CR>
  
-noremap k j
-noremap i k
-noremap h i
-noremap j h
-noremap H I
+"分屏切换
+map sh <C-w>t<C-w>L
+map sv <C-w>t<C-w>K
+
 
 map <up> :res +5<CR>
 map <down> :res -5<CR>
@@ -63,6 +73,9 @@ let NERDTreeMapOpenSplit = 'h'
 
 "figlet  ascii字符文字
 map fg :r !figlet 
+
+"html
+map ht :%TOhtml
 
 call plug#begin('~/.vim/plugged')
     
@@ -117,3 +130,8 @@ map <F5> :call CompileRunGcc()<CR>
     endfunc
 
 	let g:syntastic_python_python_exec = 'python3' 
+
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
