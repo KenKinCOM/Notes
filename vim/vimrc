@@ -28,10 +28,10 @@ map <LEADER>sc :set spell!<CR>
 noremap <C-x> ea<C-x>s
 inoremap <C-x> <Esc>ea<C-x>s
 
- map sl :set splitright<CR>:vsplit<CR>
- map sj :set nosplitright<CR>:vsplit<CR>
- map si :set nosplitbelow<CR>:split<CR>
- map sk :set splitbelow<CR>:split<CR>
+map sl :set splitright<CR>:vsplit<CR>
+map sj :set nosplitright<CR>:vsplit<CR>
+map si :set nosplitbelow<CR>:split<CR>
+map sk :set splitbelow<CR>:split<CR>
  
 noremap k j
 noremap i k
@@ -74,8 +74,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 "markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+
 " Undo Tree
-" 
 Plug 'mbbill/undotree/'
 
 " Python
