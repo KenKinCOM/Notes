@@ -16,6 +16,8 @@ set showmatch
 set tabstop=4
 set autoindent
 set scrolloff=4
+set updatetime=100
+set shortmess+=c
 
 "方向键
 noremap k j
@@ -63,6 +65,7 @@ map <LEADER>j <C-w>h
 map <LEADER>l <C-w>l
 
 
+
 nnoremap <LEADER>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap tt :NERDTreeToggle<CR>
@@ -70,9 +73,59 @@ nnoremap <LEADER>f :NERDTreeFind<CR>
     
 "NERDTree"
 let NERDTreeMapOpenSplit = 'h'
+" Mirror the NERDTree before showing it. This makes it the same on all tabs.
+nnoremap tr :NERDTreeMirror<CR>:NERDTreeFocus<CR>
 
 "figlet  ascii字符文字
 map fg :r !figlet 
+
+"coc 配置
+
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <C-o> coc#refresh()
+else
+  inoremap <silent><expr> <C-o> coc#refresh()
+endif
+
 
 "html
 map ht :%TOhtml
@@ -83,6 +136,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'connorholyday/vim-snazzy'
 " File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 "markdown
@@ -94,6 +148,8 @@ Plug 'mbbill/undotree/'
 " Python
 Plug 'vim-scripts/indentpython.vim'
 
+"coc-vim
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Error checking
 Plug 'w0rp/ale'
 call plug#end()
