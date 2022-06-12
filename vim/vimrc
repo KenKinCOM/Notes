@@ -66,12 +66,12 @@ map <LEADER>l <C-w>l
 
 
 
+"NERDTree"
 nnoremap <LEADER>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap tt :NERDTreeToggle<CR>
 nnoremap <LEADER>f :NERDTreeFind<CR>
     
-"NERDTree"
 let NERDTreeMapOpenSplit = 'h'
 " Mirror the NERDTree before showing it. This makes it the same on all tabs.
 nnoremap tr :NERDTreeMirror<CR>:NERDTreeFocus<CR>
@@ -102,6 +102,42 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+
+"fzf
+noremap <C-p> :FZF<CR>
+noremap <C-a> :Ag<CR>
+noremap <C-h> :History<CR>
+noremap <C-l> :Lines<CR>
+noremap <C-W> :Windows<CR>
+noremap <C-c> :Commands<CR>
+noremap <C-g> :GFiles<CR>
+
+
+let g:fzf_preview_window = 'right:40%'
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+
+function! s:delete_buffers(lines)
+  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+
+command! BD call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+\ }))
+
+noremap <c-d> :BD<CR>
+
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.60 } }
+
+
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -131,7 +167,11 @@ endif
 map ht :%TOhtml
 
 call plug#begin('~/.vim/plugged')
-    
+
+"fzf.vim
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 Plug 'vim-airline/vim-airline'
 Plug 'connorholyday/vim-snazzy'
 " File navigation
@@ -188,6 +228,6 @@ map <F5> :call CompileRunGcc()<CR>
 	let g:syntastic_python_python_exec = 'python3' 
 
 " Start NERDTree and put the cursor back in the other window.
-autocmd VimEnter * NERDTree | wincmd p
+"autocmd VimEnter * NERDTree | wincmd p
 " Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
