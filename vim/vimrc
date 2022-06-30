@@ -102,13 +102,16 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+"markdown preview theme
+let g:mkdp_theme = 'light'
+
 
 "fzf
 noremap <C-p> :FZF<CR>
 noremap <C-a> :Ag<CR>
 noremap <C-h> :History<CR>
 noremap <C-l> :Lines<CR>
-noremap <C-W> :Windows<CR>
+noremap <C-d> :Windows<CR>
 noremap <C-c> :Commands<CR>
 noremap <C-g> :GFiles<CR>
 
@@ -214,7 +217,7 @@ map <F5> :call CompileRunGcc()<CR>
         elseif &filetype == 'sh'
             :!time bash %
         elseif &filetype == 'python'
-            exec "!time python3 %"
+            exec "!python3 %"
         elseif &filetype == 'html'
             exec "!firefox % &"
         elseif &filetype == 'go'
