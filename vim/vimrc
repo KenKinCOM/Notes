@@ -64,7 +64,7 @@ map <LEADER>l <C-w>l
 
 "分屏切换
 map sv <C-w>t<C-w>K
-
+map sh <C-w>t<C-w>L
 
 map <up> :res +5<CR>
 map <down> :res -5<CR>
@@ -95,7 +95,7 @@ autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTa
 
 "===
 "===figlet  ascii字符文字
-"===
+"== 
 map fg :r !figlet 
 
 "===
@@ -181,7 +181,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-nnoremap <silent> <LEADER>k :call ShowDocumentation()<CR>
+nnoremap <silent> <LEADER>h :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
