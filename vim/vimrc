@@ -29,14 +29,13 @@ noremap I H
 
 map ! :q!<CR>
 map Q :q<CR>
-map W :wq<CR>
-map S :w<CR>
+map W :w<CR>
 map R :source $MYVIMRC<CR>
 
 "===
 "===spellcheck
 "===
-map <LEADER>sc :set spell!<CR>
+map <LEADER>c :set spell!<CR>
 noremap <C-x> ea<C-x>s
 inoremap <C-x> <Esc>ea<C-x>s
 
@@ -54,6 +53,18 @@ map si :set nosplitbelow<CR>:split<CR>
 map sk :set splitbelow<CR>:split<CR>
  
 "===
+"===wildfire
+"===
+" this selects the next closest text object.
+map <space> <plug>(wildfire-fuel)
+
+" this selects the previous closest text object.
+vmap <c-space> <plug>(wildfire-water)
+nmap <leader>s <Plug>(wildfire-quick-select)
+
+let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it"]
+
+"===
 "===分屏(split)
 "===
 
@@ -63,8 +74,8 @@ map <LEADER>j <C-w>h
 map <LEADER>l <C-w>l
 
 "分屏切换
-map sv <C-w>t<C-w>K
-map sh <C-w>t<C-w>L
+map sv <c-w>t<c-w>k
+map sh <c-w>t<c-w>l
 
 map <up> :res +5<CR>
 map <down> :res -5<CR>
@@ -75,17 +86,17 @@ let mapleader=' '
 
 
 "===
-"===NERDTree
+"===nerdtree
 "===
-nnoremap <LEADER>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap tt :NERDTreeToggle<CR>
-nnoremap <LEADER>f :NERDTreeFind<CR>
+nnoremap <leader>n :nerdtreefocus<cr>
+nnoremap <c-n> :nerdtree<cr>
+nnoremap tt :nerdtreetoggle<cr>
+nnoremap <leader>f :nerdtreefind<cr>
     
-let NERDTreeMapOpenSplit = 'h'
+let nerdtreemapopensplit = 'h'
 
-" Mirror the NERDTree before showing it. This makes it the same on all tabs.
-nnoremap tr :NERDTreeMirror<CR>:NERDTreeFocus<CR>
+" mirror the nerdtree before showing it. this makes it the same on all tabs.
+nnoremap tr :nerdtreemirror<cr>:nerdtreefocus<cr>
 
 " Start NERDTree and put the cursor back in the other window.
 "autocmd VimEnter * NERDTree | wincmd p
@@ -95,7 +106,7 @@ autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTa
 
 "===
 "===figlet  ascii字符文字
-"== 
+"=== 
 map fg :r !figlet 
 
 "===
@@ -231,6 +242,12 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'f
 " Undo Tree
 Plug 'mbbill/undotree/'
 
+"wildfire
+Plug 'gcmt/wildfire.vim'
+
+"surround
+Plug 'tpope/vim-surround'
+
 " Python
 Plug 'vim-scripts/indentpython.vim'
 
@@ -245,7 +262,7 @@ let g:SnazzyTransparent = 1
 
 colorscheme snazzy
 
-map <F5> :call CompileRunGcc()<CR>
+map <LEADER>x :call CompileRunGcc()<CR>
     func! CompileRunGcc()
         exec "w"
         if &filetype == 'c'
