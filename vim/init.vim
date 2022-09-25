@@ -19,6 +19,7 @@ set scrolloff=4
 set updatetime=100
 set shortmess+=c
 
+
 "方向键
 noremap k j
 noremap i k
@@ -56,11 +57,11 @@ map sk :set splitbelow<CR>:split<CR>
 "===wildfire
 "===
 " this selects the next closest text object.
-map <space> <plug>(wildfire-fuel)
+map ww <plug>(wildfire-fuel)
 
 " this selects the previous closest text object.
-vmap <c-space> <plug>(wildfire-water)
-nmap <leader>s <Plug>(wildfire-quick-select)
+vmap <c-w> <plug>(wildfire-water)
+nmap ws <Plug>(wildfire-quick-select)
 
 let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it"]
 
@@ -90,7 +91,7 @@ let mapleader=' '
 "===
 nnoremap <leader>n :nerdtreefocus<cr>
 nnoremap <c-n> :nerdtree<cr>
-nnoremap tt :nerdtreetoggle<cr>
+"nnoremap tt :nerdtreetoggle<cr>
 nnoremap <leader>f :nerdtreefind<cr>
     
 let nerdtreemapopensplit = 'h'
@@ -114,13 +115,45 @@ map fg :r !figlet
 "===
 
 "===
+"===ultisnips
+"===
+
+" Use <C-l> for trigger snippet expand.
+imap <C-j> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-o> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-k>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-i>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-l> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+
+
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+"let g:UltiSnipsExpandTrigger="<C-a>"
+"let g:UltiSnipsJumpForwardTrigger="<C-a>"
+"let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+"imap <C-j> <Plug>(coc-snippets-expand-jump)
+	
+
+"===
 "===fzf
 "===
 "
 noremap <C-p> :FZF<CR>
 noremap <C-a> :Ag<CR>
 noremap <C-h> :History<CR>
-noremap <C-n> :Lines<CR>
+noremap <C-l> :Lines<CR>
 noremap <C-d> :Windows<CR>
 noremap <C-c> :Commands<CR>
 noremap <C-g> :GFiles<CR>
@@ -165,6 +198,8 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+nnoremap tt :CocCommand explorer<CR>
+nnoremap coc :CocCommand
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -257,6 +292,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'w0rp/ale'
 call plug#end()
 
+" Track the engine.
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
 
 let g:SnazzyTransparent = 1
 
