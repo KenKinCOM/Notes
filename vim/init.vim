@@ -18,7 +18,7 @@ set autoindent
 set scrolloff=4
 set updatetime=100
 set shortmess+=c
-
+set ignorecase
 
 "方向键
 noremap k j
@@ -66,6 +66,12 @@ nmap ws <Plug>(wildfire-quick-select)
 let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it"]
 
 "===
+"===LeaderF
+"===
+noremap ff :Leaderf filer<CR>
+noremap pp :Leaderf filer --popup<CR>
+
+"===
 "===分屏(split)
 "===
 
@@ -75,15 +81,19 @@ map <LEADER>j <C-w>h
 map <LEADER>l <C-w>l
 
 "分屏切换
-map sv <c-w>t<c-w>k
-map sh <c-w>t<c-w>l
+map sv <c-w>t<c-w>K
+map sh <c-w>t<c-w>L
 
 map <up> :res +5<CR>
 map <down> :res -5<CR>
 map <left> :vertical resize-5<CR>
 map <right> :vertical resize+5<CR>    
 
-let mapleader=' '
+" Press <SPACE> + q to close the window below the current window
+noremap <LEADER>q <C-w>j:q<CR>
+
+
+let mapleadea=" "
 
 
 "===
@@ -92,7 +102,7 @@ let mapleader=' '
 nnoremap <leader>n :nerdtreefocus<cr>
 nnoremap <c-n> :nerdtree<cr>
 "nnoremap tt :nerdtreetoggle<cr>
-nnoremap <leader>f :nerdtreefind<cr>
+nnoremap nef :nerdtreefind<cr>
     
 let nerdtreemapopensplit = 'h'
 
@@ -283,6 +293,11 @@ Plug 'gcmt/wildfire.vim'
 "surround
 Plug 'tpope/vim-surround'
 
+"LeaderF
+Plug 'Yggdroot/LeaderF'
+Plug 'tamago324/LeaderF-filer'
+
+
 " Python
 Plug 'vim-scripts/indentpython.vim'
 
@@ -334,4 +349,6 @@ let g:mkdp_theme = 'light'
 
 	let g:syntastic_python_python_exec = 'python3' 
 
-
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
