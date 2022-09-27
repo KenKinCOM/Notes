@@ -20,6 +20,7 @@ set updatetime=100
 set shortmess+=c
 set ignorecase
 
+let mapleader= " " 
 "方向键
 noremap k j
 noremap i k
@@ -32,6 +33,33 @@ map ! :q!<CR>
 map Q :q<CR>
 map W :w<CR>
 map R :source $MYVIMRC<CR>
+"keep history move at leave and start 
+silent !mkdir -p $HOME/.config/nvim/tmp/backup
+silent !mkdir -p $HOME/.config/nvim/tmp/undo
+"silent !mkdir -p $HOME/.config/nvim/tmp/sessions
+set backupdir=$HOME/.config/nvim/tmp/backup,.
+set directory=$HOME/.config/nvim/tmp/backup,.
+if has('persistent_undo')
+	set undofile
+	set undodir=$HOME/.config/nvim/tmp/undo,.
+endif
+
+"Terminal
+noremap te :term<CR>
+
+" ==================== Terminal Behaviors ====================
+let g:neoterm_autoscroll = 1
+autocmd TermOpen term://* startinsert
+tnoremap <C-N> <C-\><C-N>
+
+
+
+"===
+"===indentLine
+"===
+let g:indentLine_char = '|'
+let g:indentLine_color_term = 238
+let g:indentLine_color_gui = '#333333'
 
 "===
 "===spellcheck
@@ -66,14 +94,44 @@ nmap ws <Plug>(wildfire-quick-select)
 let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it"]
 
 "===
+"===Rnvimr	
+"===
+
+" Change the border's color
+let g:rnvimr_border_attr = {'fg': 14, 'bg': -1}
+" Make Ranger to be hidden after picking a file
+let g:rnvimr_enable_picker = 1
+" Make Ranger replace Netrw and be the file explorer
+let g:rnvimr_enable_ex = 1
+" Draw border with both
+let g:rnvimr_ranger_cmd = ['ranger', '--cmd=set draw_borders both']
+" Replace `$EDITOR` candidate with this command to open the selected file
+let g:rnvimr_edit_cmd = 'drop'
+nnoremap <C-r> :RnvimrToggle<CR>
+
+
+" Map Rnvimr action
+let g:rnvimr_action = {
+            \ '<C-t>': 'NvimEdit tabedit',
+            \ '<C-x>': 'NvimEdit split',
+            \ '<C-v>': 'NvimEdit vsplit',
+            \ 'gw': 'JumpNvimCwd',
+            \ 'yw': 'EmitRangerCwd'
+            \ }
+
+
+
+"===
 "===LeaderF
 "===
 noremap ff :Leaderf filer<CR>
 noremap pp :Leaderf filer --popup<CR>
+let g:Lf_RootMarkers = "/Users/fuyu"
 
 "===
 "===分屏(split)
 "===
+
 
 map <LEADER>i <C-w>k
 map <LEADER>k <C-w>j
@@ -93,7 +151,6 @@ map <right> :vertical resize+5<CR>
 noremap <LEADER>q <C-w>j:q<CR>
 
 
-let mapleadea=" "
 
 
 "===
@@ -114,6 +171,13 @@ nnoremap tr :nerdtreemirror<cr>:nerdtreefocus<cr>
 " Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
+" coc-translator
+nmap ts <Plug>(coc-translator-p)
+
+"===
+"===Undotree
+"===
+nnoremap un :UndotreeToggle<CR>
 
 "===
 "===figlet  ascii字符文字
@@ -278,6 +342,14 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+Plug 'mhinz/vim-startify'
+
+Plug 'Yggdroot/indentLine'
+
+"Plug 'mhinz/vim-startify'
+Plug 'skywind3000/asynctasks.vim'
+Plug 'skywind3000/asyncrun.vim'
+
 "vimspector
 "Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-python'}
 
@@ -290,6 +362,8 @@ Plug 'mbbill/undotree/'
 "wildfire
 Plug 'gcmt/wildfire.vim'
 
+"vista
+Plug 'liuchengxu/vista.vim'
 "surround
 Plug 'tpope/vim-surround'
 
@@ -297,6 +371,8 @@ Plug 'tpope/vim-surround'
 Plug 'Yggdroot/LeaderF'
 Plug 'tamago324/LeaderF-filer'
 
+"rnvimr
+Plug 'kevinhwang91/rnvimr'
 
 " Python
 Plug 'vim-scripts/indentpython.vim'
