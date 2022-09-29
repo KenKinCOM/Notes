@@ -53,6 +53,13 @@ autocmd TermOpen term://* startinsert
 tnoremap <C-N> <C-\><C-N>
 
 
+"===
+"===lua
+"
+"===
+lua require('plugins')
+"lua require("symbols-outline")
+
 
 "===
 "===indentLine
@@ -344,6 +351,12 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'mhinz/vim-startify'
 
+"visual-multi
+Plug 'mg979/vim-visual-multi'
+
+"outline
+"Plug 'simrat39/symbols-outline.nvim'
+
 Plug 'Yggdroot/indentLine'
 
 "Plug 'mhinz/vim-startify'
@@ -352,6 +365,8 @@ Plug 'skywind3000/asyncrun.vim'
 
 "vimspector
 "Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-python'}
+
+"Plug 'szw/vim-tags'
 
 "markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
