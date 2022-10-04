@@ -73,6 +73,31 @@ sign define vimspectorBPDisabled text=☞ texthl=Normal
 sign define vimspectorPC text=🔶 texthl=SpellBad
 
 
+" ==================== Vim Far ====================
+set lazyredraw            " improve scrolling performance when navigating through large results
+set ignorecase smartcase  " ignore case only when the pattern contains no capital letters
+
+" shortcut for far.vim find
+nnoremap fa  :Farf<CR>
+vnoremap fa  :Farf<CR>
+
+" shortcut for far.vim replace
+nnoremap fr  :Farr<CR>
+vnoremap fr :Farr<CR>
+
+"confirm modification 
+nnoremap fd :Fardo<CR>
+vnoremap fd :Fardo<CR>
+
+"cancel modification
+nnoremap fu :Farundo<CR>
+vnoremap fu :Farundo<CR>
+
+let g:far#mapping = {
+	\ "include" : ["b"],
+	\
+	\}
+
 
 " ==================== Tagbar ====================
 nmap tb :TagbarToggle<CR>
@@ -387,6 +412,8 @@ Plug 'preservim/tagbar'
 Plug 'Yggdroot/indentLine'
 
 
+"far.vim
+Plug 'brooth/far.vim'
 
 "Plug 'mhinz/vim-startify'
 Plug 'skywind3000/asynctasks.vim'
@@ -531,5 +558,3 @@ let g:mkdp_theme = 'light'
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-
