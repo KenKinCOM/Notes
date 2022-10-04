@@ -1,11 +1,20 @@
 alias ll='ls -alF'
 alias la='ls -a'
+alias cls='clear'
 alias ra='ranger'
 alias ex='exit'
 alias nf='neofetch'
 alias cdd='cd ~/Desktop'
 alias cr='cd ~/Desktop;ra'
+#alias python='python3'
+alias sqlr='mysql -u root -p'
 export HOMEBREW_NO_AUTO_UPDATE=true
+export PATH=${PATH}:/usr/local/opt/python@3.9/bin
+export PATH=${PATH}:/usr/local/mysql/bin
+export EDITOR=/usr/local/Cellar/neovim/0.5.1_1/bin/nvim
+#export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.9/bin
+alias vim='nvim'
+alias vi='nvim'
 
 #zsh vi-mode"
 bindkey -v
