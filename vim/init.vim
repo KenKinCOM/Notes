@@ -15,7 +15,7 @@ set encoding=utf-8
 set showmatch
 set tabstop=4
 set autoindent
-set scrolloff=4
+"set scrolloff=4
 set updatetime=100
 set shortmess+=c
 set ignorecase
@@ -47,6 +47,8 @@ endif
 "runtime ./plugged/tagbar
 "runtime ./plugged/vim-tags/plugin/tags.vim
 
+map <C-k> 8k
+map <C-j> 8i
 
 "Terminal
 noremap te :term<CR>
@@ -57,6 +59,7 @@ autocmd TermOpen term://* startinsert
 tnoremap <C-N> <C-\><C-N>
 
 " ==================== Vim spector ====================
+let g:vimspector_base_dir='/Users/fuyu/.vim/plugged/vimspector'
 let g:vimspector_enable_mappings = 'HUMAN'
 function! s:read_template_into_buffer(template)
 	" has to be a function to avoid the extra space fzf#run insers otherwise
@@ -255,6 +258,8 @@ imap <C-j> <Plug>(coc-snippets-expand)
 
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-o> <Plug>(coc-snippets-select)
+	
+
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<c-k>'
@@ -320,6 +325,22 @@ let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.60 } }
 "===coc配置
 "===
 
+let g:coc_global_extensions = [
+	\ 'coc-css',
+	\ 'coc-explorer',
+	\ 'coc-flutter-tools',
+	\ 'coc-html',
+	\ 'coc-import-cost',
+	\ 'coc-json',
+	\ 'coc-lists',
+	\ 'coc-prettier',
+	\ 'coc-pyright',
+	\ 'coc-snippets',
+	\ 'coc-syntax',
+	\ 'coc-translator',
+	\ 'coc-tsserver',
+	\ 'coc-vimlsp']
+
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -381,7 +402,8 @@ endif
 "===
 "===html
 "===
-map ht :%TOhtml
+"chang file to html
+" map ht :%TOhtml
 
 "===
 "===vim-plug
@@ -401,7 +423,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'mhinz/vim-startify'
-
+"
 "visual-multi
 Plug 'mg979/vim-visual-multi'
 
@@ -410,35 +432,36 @@ Plug 'preservim/tagbar'
 "Plug 'simrat39/symbols-outline.nvim'
 
 Plug 'Yggdroot/indentLine'
-
-
+"
+Plug 'tpope/vim-commentary'
+"
 "far.vim
 Plug 'brooth/far.vim'
-
-"Plug 'mhinz/vim-startify'
+"
+Plug 'mhinz/vim-startify'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
-
+"
 "vimspector
 Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-python'}
 
 "Plug 'szw/vim-tags'
 
-"markdown
+""markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
-
+"
 " Undo Tree
 Plug 'mbbill/undotree/'
-
-
+"
+"
 "wildfire
 Plug 'gcmt/wildfire.vim'
-
+"
 "vista
 Plug 'liuchengxu/vista.vim'
 "surround
 Plug 'tpope/vim-surround'
-
+"
 "LeaderF
 Plug 'Yggdroot/LeaderF'
 Plug 'tamago324/LeaderF-filer'
@@ -526,7 +549,7 @@ func! CompileRunGcc()
 	elseif &filetype == 'html'
 		silent! exec "!".g:mkdp_browser." % &"
 	elseif &filetype == 'markdown'
-		exec "InstantMarkdownPreview"
+		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
 		silent! exec "VimtexStop"
 		silent! exec "VimtexCompile"
