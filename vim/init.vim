@@ -5,6 +5,7 @@
 "   \_/  |_|_| |_| |_|_|  \___|
 
 syntax on
+" set spell
 set number
 set wildmenu
 set relativenumber
@@ -33,10 +34,18 @@ map ! :q!<CR>
 map Q :q<CR>
 map W :w<CR>
 map R :source $MYVIMRC<CR>
+nnoremap cp :cd %:p:h<CR>
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
+
+
+
 "keep history move at leave and start 
 silent !mkdir -p $HOME/.config/nvim/tmp/backup
 silent !mkdir -p $HOME/.config/nvim/tmp/undo
-"silent !mkdir -p $HOME/.config/nvim/tmp/sessions
+silent !mkdir -p $HOME/.config/nvim/tmp/sessions
 set backupdir=$HOME/.config/nvim/tmp/backup,.
 set directory=$HOME/.config/nvim/tmp/backup,.
 if has('persistent_undo')
@@ -44,7 +53,7 @@ if has('persistent_undo')
 	set undodir=$HOME/.config/nvim/tmp/undo,.
 endif
 
-"runtime ./plugged/tagbar
+"runtime ./pugged/tagbar
 "runtime ./plugged/vim-tags/plugin/tags.vim
 
 map <C-k> 8k
@@ -447,9 +456,14 @@ Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-python'}
 
 "Plug 'szw/vim-tags'
 
-""markdown
+"markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
-"
+Plug 'vimwiki/vimwiki'
+
+" If you have nodejs and yarn
+" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+" Plug 'shime/vim-livedown'
+
 " Undo Tree
 Plug 'mbbill/undotree/'
 "
@@ -547,7 +561,9 @@ func! CompileRunGcc()
 		:sp
 		:term python3 %
 	elseif &filetype == 'html'
-		silent! exec "!".g:mkdp_browser." % &"
+		:cd %:p:h
+		:!open -a "/Applications/Google Chrome.app" % 
+
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
@@ -572,8 +588,48 @@ func! CompileRunGcc()
 	endif
 endfunc
 
+" " ===
+" " === LivePreview
+" " ===
+" " should markdown preview get shown automatically upon opening markdown buffer
+" let g:livedown_autorun = 0
+
+" " should the browser window pop-up upon previewing
+" let g:livedown_open = 1
+
+" " the port on which Livedown server will run
+" let g:livedown_port = 1337
+
+" " the browser to use, can also be firefox, chrome or other, depending on your executable
+" let g:livedown_browser = "safari"
+
+
+" ===
+" === MarkdownPreview
+" ===
+
 "markdown preview theme
 let g:mkdp_theme = 'light'
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+let g:mkdp_open_to_the_world = 0
+let g:mkdp_browserfunc = ''
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1
+    \ }
+let g:mkdp_markdown_css = ''
+let g:mkdp_highlight_css = ''
+let g:mkdp_page_title = '「${name}」'
+
+
 
 
 	let g:syntastic_python_python_exec = 'python3' 
