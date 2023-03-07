@@ -68,7 +68,7 @@ autocmd TermOpen term://* startinsert
 tnoremap <C-N> <C-\><C-N>
 
 " ==================== Vim spector ====================
-let g:vimspector_base_dir='/Users/fuyu/.vim/plugged/vimspector'
+let g:vimspector_base_dir='~/.vim/plugged/vimspector'
 let g:vimspector_enable_mappings = 'HUMAN'
 function! s:read_template_into_buffer(template)
 	" has to be a function to avoid the extra space fzf#run insers otherwise
