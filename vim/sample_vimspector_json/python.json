@@ -1,14 +1,15 @@
 {
+
   "adapters": {
     "debugpy": {
       "command": [
-        "python",
+        "python3",
         "-m",
         "debugpy.adapter"
       ],
       "name": "debugpy",
       "configuration": {
-        "python": "python"
+        "python": "python3"
       }
     }
   },

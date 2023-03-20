@@ -36,11 +36,9 @@ map W :w<CR>
 map R :source $MYVIMRC<CR>
 nnoremap cp :cd %:p:h<CR>
 noremap <Leader>y "*y
-noremap <Leader>p "*p
+" noremap <Leader>p "*p
 noremap <Leader>Y "+y
-noremap <Leader>P "+p
-
-
+" noremap <Leader>P "+p
 
 "keep history move at leave and start 
 silent !mkdir -p $HOME/.config/nvim/tmp/backup
@@ -62,13 +60,32 @@ map <C-j> 8i
 "Terminal
 noremap te :term<CR>
 
+" ==================== Python ====================
+noremap <Leader>p :sp<CR>:term python3 -i %
+		
+" ==================== Markdown Settings ====================
+" Snippets
+source $HOME/.config/nvim/md-snippets.vim
+noremap <Leader>m :MarkdownPreview<CR>
+
+" let g:pyhtmlPreviewerAutoOpen=1
 " ==================== Terminal Behaviors ====================
 let g:neoterm_autoscroll = 1
 autocmd TermOpen term://* startinsert
 tnoremap <C-N> <C-\><C-N>
 
 " ==================== Vim spector ====================
-let g:vimspector_base_dir='~/.vim/plugged/vimspector'
+nmap <Leader>es <Plug>VimspectorContinue
+nmap <Leader>eb  <Plug>VimspectorToggleBreakpoint
+nmap <Leader>er  <Plug>VimspectorRestart
+nmap <Leader>et  <Plug>VimspectorStop
+nmap <Leader>ep  <Plug>VimspectorPause
+nmap <Leader>ec  <Plug>VimspectorRunToCursor
+nmap <Leader>ei  <Plug>VimspectorStepInto
+nmap <Leader>eo  <Plug>VimspectorStepOut
+nmap <Leader>ee  <Plug>VimspectorStepOver
+" let g:vimspector_base_dir='~/.vim/plugged/vimspector'
+let g:vimspector_base_dir='~/.vim/sample_vimspector_json/~/.vim/plugged/vimspector'
 let g:vimspector_enable_mappings = 'HUMAN'
 function! s:read_template_into_buffer(template)
 	" has to be a function to avoid the extra space fzf#run insers otherwise
@@ -90,20 +107,20 @@ set lazyredraw            " improve scrolling performance when navigating throug
 set ignorecase smartcase  " ignore case only when the pattern contains no capital letters
 
 " shortcut for far.vim find
-nnoremap fa  :Farf<CR>
-vnoremap fa  :Farf<CR>
+nnoremap fA  :Farf<CR>
+vnoremap fA  :Farf<CR>
 
 " shortcut for far.vim replace
-nnoremap fr  :Farr<CR>
-vnoremap fr :Farr<CR>
+nnoremap fR  :Farr<CR>
+vnoremap fR :Farr<CR>
 
 "confirm modification 
-nnoremap fd :Fardo<CR>
-vnoremap fd :Fardo<CR>
+nnoremap fD :Fardo<CR>
+vnoremap fD :Fardo<CR>
 
 "cancel modification
-nnoremap fu :Farundo<CR>
-vnoremap fu :Farundo<CR>
+nnoremap fU :Farundo<CR>
+vnoremap fU :Farundo<CR>
 
 let g:far#mapping = {
 	\ "include" : ["b"],
@@ -120,8 +137,37 @@ let g:tagbar_map_jump= '<tab>'
 "===
 "===lua
 "===
-lua require('plugins')
+" lua require('python')
 "lua require("symbols-outline")
+"local dap = require('dap')
+
+" lua << EOF
+" require('dap.ext.vscode').load_launchjs()
+" EOF
+
+
+
+
+" lua 
+" dap.adapters.python = {
+"   type = 'executable',
+"   command = '/usr/bin/python3.8';
+"   args = { '-m', 'debugpy.adapter' }, 
+" }
+"EOF
+" dap.configurations.python = {
+"     {
+"         type = "python";
+"         request = "launch";
+"         name = "launch file";
+"         program = "${file}";
+"         pythonPath = function ()
+"             return "/usr/bin/python3.8"
+"         end
+"     },
+"  } 
+
+" lua require('dap-go').setup()
 
 
 "===
@@ -134,9 +180,9 @@ let g:indentLine_color_gui = '#333333'
 "===
 "===spellcheck
 "===
-map <LEADER>c :set spell!<CR>
-noremap <C-x> ea<C-x>s
-inoremap <C-x> <Esc>ea<C-x>s
+" map <LEADER>c :set spell!<CR>
+" noremap <C-x> ea<C-x>s
+" inoremap <C-x> <Esc>ea<C-x>s
 
 "===
 "===标签页	
@@ -297,7 +343,7 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 "===
 "
 noremap <C-p> :FZF<CR>
-noremap <C-a> :Ag<CR>
+" noremap <C-a> :Ag<CR>
 noremap <C-h> :History<CR>
 noremap <C-l> :Lines<CR>
 noremap <C-d> :Windows<CR>
@@ -431,6 +477,15 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+" dap
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+" Plug 'theHamsta/nvim-dap-virtual-text'
+" Plug 'leoluz/nvim-dap-go'
+Plug 'mfussenegger/nvim-dap-python'
+" Plug 'Pocco81/DAPInstall.nvim'
+
+
 Plug 'mhinz/vim-startify'
 "
 "visual-multi
@@ -486,6 +541,9 @@ Plug 'kevinhwang91/rnvimr'
 " Python
 Plug 'vim-scripts/indentpython.vim'
 
+"
+" Plug 'https://gitee.com/mightyang/pyhtmlPreviewer.git'
+
 "coc-vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Error checking
@@ -529,7 +587,7 @@ colorscheme snazzy
 "    endfunc
 
 " Compile function
-noremap  <LEADER>x  :call CompileRunGcc()<CR>
+noremap  <Leader>x  :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
@@ -562,7 +620,7 @@ func! CompileRunGcc()
 		:term python3 %
 	elseif &filetype == 'html'
 		:cd %:p:h
-		:!open -a "/Applications/Google Chrome.app" % 
+		:!open -a "/Applications/Safari.app" % 
 
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
