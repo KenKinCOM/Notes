@@ -16,10 +16,11 @@ set encoding=utf-8
 set showmatch
 set tabstop=4
 set autoindent
-"set scrolloff=4
+set scrolloff=4
 set updatetime=100
 set shortmess+=c
 set ignorecase
+filetype plugin on
 
 let mapleader= " " 
 "方向键
@@ -35,6 +36,7 @@ map Q :q<CR>
 map W :w<CR>
 map R :source $MYVIMRC<CR>
 nnoremap cp :cd %:p:h<CR>
+vnoremap // y/<c-r>"<cr>
 noremap <Leader>y "*y
 " noremap <Leader>p "*p
 noremap <Leader>Y "+y
@@ -57,11 +59,42 @@ endif
 map <C-k> 8k
 map <C-j> 8i
 
+" ==
+" == vim-multiple-cursor
+" ==
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_start_word_key      = '<c-n>'
+let g:multi_cursor_select_all_word_key = '<a-n>'
+let g:multi_cursor_start_key           = 'g<c-n>'
+let g:multi_cursor_select_all_key      = 'g<a-n>'
+let g:multi_cursor_next_key            = '<c-n>'
+let g:multi_cursor_prev_key            = '<c-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
+
+" ==================== Vim-easy-align ====================
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 "Terminal
 noremap te :term<CR>
 
 " ==================== Python ====================
 noremap <Leader>p :sp<CR>:term python3 -i %
+
+
+" ==================== markmap ====================
+" Create markmap from the whole file
+nmap mp :CocCommand markmap.watch<CR>
+nmap <Leader>b <Plug>(coc-markmap-create)
+" Create markmap from the selected lines
+vmap <Leader>b <Plug>(coc-markmap-create-v)
+
+
 		
 " ==================== Markdown Settings ====================
 " Snippets
@@ -75,7 +108,9 @@ autocmd TermOpen term://* startinsert
 tnoremap <C-N> <C-\><C-N>
 
 " ==================== Vim spector ====================
-nmap <Leader>es <Plug>VimspectorContinue
+nmap <Leader>ev <Plug>VimspectorJumpToPreviousBreakpoint
+nmap <Leader>en <Plug>VimspectorJumpToNextBreakpoint
+nmap <Leader>es <Plug>VimspectorContinue\<Esc>
 nmap <Leader>eb  <Plug>VimspectorToggleBreakpoint
 nmap <Leader>er  <Plug>VimspectorRestart
 nmap <Leader>et  <Plug>VimspectorStop
@@ -223,7 +258,7 @@ let g:rnvimr_enable_ex = 1
 let g:rnvimr_ranger_cmd = ['ranger', '--cmd=set draw_borders both']
 " Replace `$EDITOR` candidate with this command to open the selected file
 let g:rnvimr_edit_cmd = 'drop'
-nnoremap <C-r> :RnvimrToggle<CR>
+" nnoremap <C-r> :RnvimrToggle<CR>
 
 
 " Map Rnvimr action
@@ -272,15 +307,15 @@ noremap <LEADER>q <C-w>j:q<CR>
 "===
 "===nerdtree
 "===
-nnoremap <leader>n :nerdtreefocus<cr>
-nnoremap <c-n> :nerdtree<cr>
-"nnoremap tt :nerdtreetoggle<cr>
-nnoremap nef :nerdtreefind<cr>
+"nnoremap <leader>n :nerdtreefocus<cr>
+"nnoremap <c-n> :nerdtree<cr>
+""nnoremap tt :nerdtreetoggle<cr>
+"nnoremap nef :nerdtreefind<cr>
     
-let nerdtreemapopensplit = 'h'
+"let nerdtreemapopensplit = 'h'
 
-" mirror the nerdtree before showing it. this makes it the same on all tabs.
-nnoremap tr :nerdtreemirror<cr>:nerdtreefocus<cr>
+"" mirror the nerdtree before showing it. this makes it the same on all tabs.
+"nnoremap tr :nerdtreemirror<cr>:nerdtreefocus<cr>
 
 " Start NERDTree and put the cursor back in the other window.
 "autocmd VimEnter * NERDTree | wincmd p
@@ -342,13 +377,14 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 "===fzf
 "===
 "
-noremap <C-p> :FZF<CR>
+noremap <C-z> :FZF<CR>
 " noremap <C-a> :Ag<CR>
 noremap <C-h> :History<CR>
 noremap <C-l> :Lines<CR>
-noremap <C-d> :Windows<CR>
+" noremap <C-d> :Windows<CR>
 noremap <C-c> :Commands<CR>
 noremap <C-g> :GFiles<CR>
+noremap <C-r> :Buffers<CR>
 
 
 let g:fzf_preview_window = 'right:40%'
@@ -393,8 +429,10 @@ let g:coc_global_extensions = [
 	\ 'coc-snippets',
 	\ 'coc-syntax',
 	\ 'coc-translator',
+	\ 'coc-markmap',
 	\ 'coc-tsserver',
 	\ 'coc-vimlsp']
+
 
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -470,6 +508,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+
 Plug 'vim-airline/vim-airline'
 Plug 'connorholyday/vim-snazzy'
 " File navigation
@@ -485,6 +524,8 @@ Plug 'rcarriga/nvim-dap-ui'
 Plug 'mfussenegger/nvim-dap-python'
 " Plug 'Pocco81/DAPInstall.nvim'
 
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/goyo.vim'
 
 Plug 'mhinz/vim-startify'
 "
@@ -507,7 +548,7 @@ Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 "
 "vimspector
-Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-python'}
+Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-python --enable-bash'}
 
 "Plug 'szw/vim-tags'
 
