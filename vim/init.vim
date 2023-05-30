@@ -344,7 +344,7 @@ map fg :r !figlet
 "===
 
 " Use <C-l> for trigger snippet expand.
-imap <C-j> <Plug>(coc-snippets-expand)
+imap <C-m> <Plug>(coc-snippets-expand)
 
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-o> <Plug>(coc-snippets-select)
@@ -423,6 +423,7 @@ let g:coc_global_extensions = [
 	\ 'coc-html',
 	\ 'coc-import-cost',
 	\ 'coc-json',
+	\ 'coc-jedi',
 	\ 'coc-lists',
 	\ 'coc-prettier',
 	\ 'coc-pyright',

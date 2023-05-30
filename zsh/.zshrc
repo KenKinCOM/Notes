@@ -73,18 +73,23 @@ ZSH_THEME="eastwood"
 # Add wisely, as too many plugins slow down shell startup.
 
 plugins=(
+
   sudo
+  per-directory-history
+  mark_address
   dirhistory
   copyfile
   copypath
   bundler
-  web-search
-  dotenv
   macos
   rake
   rbenv
   ruby
   macos
+  dotenv
+  connect_wifi
+  web-search
+  proxy
  
 )
 
@@ -124,15 +129,25 @@ alias ex='exit'
 alias nf='neofetch'
 alias cdd='cd ~/Desktop'
 alias cr='cd ~/Desktop;ra'
+alias t='tmux'
 #alias python='python3'
 alias sqlr='mysql -u root -p'
+alias mysqlstart='sudo /usr/local/mysql/support-files/mysql.server start'
+alias mysqlstop='sudo /usr/local/mysql/support-files/mysql.server stop'
+alias ocrw='python3 ~/notes/OCR_word.py'
+# alias csw='python3 $HOME/.TOMCAT/connect_web.py'
+# alias cwf='networksetup -setairportnetwork en0 Redmi_ACD9_5G QWERTYUIOP000'
+# alias cwt='networksetup -setairportnetwork en0 TUST'
 export HOMEBREW_NO_AUTO_UPDATE=true
 export PATH=${PATH}:/usr/local/opt/python@3.9/bin
 export PATH=${PATH}:/usr/local/mysql/bin
 export EDITOR=/usr/local/Cellar/neovim/0.5.1_1/bin/nvim
+
+
 #export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.9/bin
 alias vim='nvim'
 alias vi='nvim'
+# setopt no_nomatch
 
 #zsh vi-mode"
 bindkey -v
@@ -160,4 +175,21 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_COMPLETION_TRIGGER='\'
 export fzf_preview_cmd='[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (ccat --color=always {} || highlight -O ansi -l {} || cat {}) 2> /dev/null | head -500'
 source ~/.config/zsh/completion.zsh
+
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/Users/Nier/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/Users/Nier/miniconda3/etc/profile.d/conda.sh" ]; then
+#         . "/Users/Nier/miniconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/Users/Nier/miniconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
 
