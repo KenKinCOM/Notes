@@ -6,6 +6,7 @@
 
 syntax on
 " set spell
+set showcmd
 set number
 set wildmenu
 set relativenumber
@@ -20,6 +21,7 @@ set scrolloff=4
 set updatetime=100
 set shortmess+=c
 set ignorecase
+set foldmethod=indent
 filetype plugin on
 
 let mapleader= " " 
@@ -41,6 +43,7 @@ noremap <Leader>y "*y
 " noremap <Leader>p "*p
 noremap <Leader>Y "+y
 " noremap <Leader>P "+p
+noremap <Leader>hl :nohlsearch<CR>
 
 "keep history move at leave and start 
 silent !mkdir -p $HOME/.config/nvim/tmp/backup
@@ -72,6 +75,14 @@ let g:multi_cursor_prev_key            = '<c-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
+" ====================== vim-translator ====================
+nmap <silent> <Leader>ts <Plug>Translate
+vmap <silent> <Leader>ts <Plug>TranslateV
+let g:translator_default_engines = ['bing','haici']
+" let g:translator_proxy_url = 'socks5://127.0.0.1:58591'
+vnoremap <silent> <Leader>tt :<C-u>Ydv<CR>
+nnoremap <silent> <Leader>tt :<C-u>Ydc<CR>
+noremap <leader>yd :<C-u>Yde<CR>
 
 " ==================== Vim-easy-align ====================
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -323,7 +334,7 @@ noremap <LEADER>q <C-w>j:q<CR>
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
 " coc-translator
-nmap ts <Plug>(coc-translator-p)
+" nmap ts <Plug>(coc-translator-p)
 
 "===
 "===Undotree
@@ -344,7 +355,8 @@ map fg :r !figlet
 "===
 
 " Use <C-l> for trigger snippet expand.
-imap <C-m> <Plug>(coc-snippets-expand)
+" imap <C-m> <Plug>(coc-snippets-expand)
+
 
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-o> <Plug>(coc-snippets-select)
@@ -383,7 +395,7 @@ noremap <C-h> :History<CR>
 noremap <C-l> :Lines<CR>
 " noremap <C-d> :Windows<CR>
 noremap <C-c> :Commands<CR>
-noremap <C-g> :GFiles<CR>
+" noremap <C-g> :GFiles<CR>
 noremap <C-r> :Buffers<CR>
 
 
@@ -423,10 +435,9 @@ let g:coc_global_extensions = [
 	\ 'coc-html',
 	\ 'coc-import-cost',
 	\ 'coc-json',
-	\ 'coc-jedi',
+	\ 'coc-pyright',
 	\ 'coc-lists',
 	\ 'coc-prettier',
-	\ 'coc-pyright',
 	\ 'coc-snippets',
 	\ 'coc-syntax',
 	\ 'coc-translator',
@@ -434,6 +445,7 @@ let g:coc_global_extensions = [
 	\ 'coc-tsserver',
 	\ 'coc-vimlsp']
 
+	" \ 'coc-jedi',
 
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -470,9 +482,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gy <Plug>(coc-references)
 
 nnoremap <silent> <LEADER>h :call ShowDocumentation()<CR>
 
@@ -505,6 +517,7 @@ map ml :%TOhtml
 
 call plug#begin('~/.vim/plugged')
 
+
 "fzf.vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -524,6 +537,10 @@ Plug 'rcarriga/nvim-dap-ui'
 " Plug 'leoluz/nvim-dap-go'
 Plug 'mfussenegger/nvim-dap-python'
 " Plug 'Pocco81/DAPInstall.nvim'
+
+Plug 'voldikss/vim-translator'
+Plug 'ianva/vim-youdao-translater'
+
 
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/goyo.vim'
