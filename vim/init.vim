@@ -44,6 +44,7 @@ noremap <Leader>y "*y
 noremap <Leader>Y "+y
 " noremap <Leader>P "+p
 noremap <Leader>hl :nohlsearch<CR>
+noremap <Leader>js :%!python3 -m json.tool<CR>
 
 "keep history move at leave and start 
 silent !mkdir -p $HOME/.config/nvim/tmp/backup
@@ -78,7 +79,7 @@ let g:multi_cursor_quit_key            = '<Esc>'
 " ====================== vim-translator ====================
 nmap <silent> <Leader>ts <Plug>Translate
 vmap <silent> <Leader>ts <Plug>TranslateV
-let g:translator_default_engines = ['bing','haici']
+let g:translator_default_engines = ['google']
 " let g:translator_proxy_url = 'socks5://127.0.0.1:58591'
 vnoremap <silent> <Leader>tt :<C-u>Ydv<CR>
 nnoremap <silent> <Leader>tt :<C-u>Ydc<CR>
@@ -680,12 +681,11 @@ func! CompileRunGcc()
 	elseif &filetype == 'html'
 		:cd %:p:h
 		:!open -a "/Applications/Safari.app" % 
-
-	elseif &filetype == 'markdown'
-		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
 		silent! exec "VimtexStop"
 		silent! exec "VimtexCompile"
+    elseif &filetype == 'markdown'
+ 	    exec "MarkdownPreview"
 	elseif &filetype == 'dart'
 		exec "CocCommand flutter.run -d ".g:flutter_default_device." ".g:flutter_run_args
 		silent! exec "CocCommand flutter.dev.openDevLog"
