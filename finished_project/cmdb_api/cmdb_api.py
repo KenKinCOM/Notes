@@ -8,7 +8,7 @@ header = {
     "Authorization": "Token dc2f2a8eb083e61b6d7cbc38083d8b2e0ba51839",
 }
 def switch_api(method,application,id='',**kwargs):
-    url = 'http://cmdb.yyuap.com/api'+api_work_place[application]
+    url = 'http://cmdb.yyuap.com/api'+api_work_place[application] +"?limit=1000"
     if id:
         url = url+id+'/'
     session = getattr(requests.session(),method)
